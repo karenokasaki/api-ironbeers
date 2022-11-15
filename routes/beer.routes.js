@@ -72,4 +72,20 @@ beerRouter.delete("/delete/:id", async (req, res) => {
   }
 });
 
+beerRouter.put("/edit/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const editedBeer = await BeerModel.findByIdAndUpdate(
+      id,
+      { ...req.body },
+      { new: true }
+    );
+
+    return res.status(200).json(editedBeer)
+  } catch (error) {
+    return res.status(400).json({ msg: "Algo deu errado EDIT" });
+  }
+});
+
 export { beerRouter };
